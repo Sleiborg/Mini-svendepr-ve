@@ -1,0 +1,138 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>App III</title>
+
+        <!-- Integration til CSS og JS -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script type="text/javascript" src="/JS/materialize.min.js"></script>
+        <link type="text/CSS" href="/CSS/StyleSheet.css" rel="stylesheet">
+        <link type="text/css" href="/CSS/materialize.min.css" rel="stylesheet">
+        <link type="text/css" href="/CSS/Camera.css" rel="stylesheet">
+
+        <!-- IOS support-->
+        <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png">
+        <meta name="apple-mobil-web-app-status-bar" content=""#aa7700>
+        <meta name="theme-color" content="FFE1C4">
+    </head>
+
+    <body class="grey lighten-4">
+        <nav class="z-depth-0">
+            <div class="nav-wrapper container">
+                <a href="/HTML/index.html">Slei Food</a>
+                <span class="right grey-text text-darken-1">
+                    <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
+                </span>
+            </div>
+        </nav>
+        
+        <!-- Menu -->
+        <ul id="side-menu" class="sideNav side-menu">
+            <li><a class="subHeader">Slei food</a></li>
+            <li><a href="/HTML/index.html" class="wave-effect">Home</a></li>
+            <li><a href="/HTML/About.html" class="wave-effect">About</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="/HTML/Contact.html" class="wave-effect">
+                <i class="material-icons">mail_outline</i>Contact</a>
+            </li>
+        </ul>
+        
+        <!--Produkter-->
+        <div class="Product container grey-text text-darken-1">
+            <h6 class="center">Velkommen til Slei Food</h6>
+        <div class="products"></div>
+        </div>
+
+        <!--Tilføj et produkt-->
+        <div id="side-form" class="sideNav side-form">
+            <form class="add-product container section" id="createForm">
+                 <!--title-->
+                <h6>New Product</h6>
+                <div class="divider"></div>
+                <div class="input-field">
+                  <input placeholder="Dette er en Title" id="title" type="text" class="validate" name="title">
+                  <label for="title">Title</label>
+                </div>
+
+                <!--description-->
+                <div class="input-field">
+                  <input placeholder="Dette er en beskrivelse" id="descriptions" type="text" class="validate" name="descriptions">
+                  <label for="descriptions">description</label>
+                </div>
+
+                 <!--Camera-->
+                <div class="camera">
+                    <video id="video">Video stream not available.</video>
+                    <button id="startbutton">Take photo</button> 
+                  </div>
+                  <canvas id="canvas">
+                  </canvas>
+                  <div class="output">
+                    <img id="photo" alt="The screen capture will appear in this box."> 
+                  </div>
+            
+
+                <div class="input-field center">
+                  <button class="btn-small" id="createProduct">Add</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="center">
+            <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
+                <i class="material-icons">+</i>
+            </a>
+        </div>
+
+        <!-- tilføj produkt side nav-->
+        <div id="side-form" class="sidenav side-form">
+            <!--<form class="add-product container section">-->
+                <h6>New product</h6>
+                <div class="divider"></div>
+                <div class="input-field">
+                    <input placeholder="Dette er en Titel" id="title" type="text" class="validate">
+                    <label for="title">Title</label>
+                </div>
+                <div class="input-field">
+                    <input placeholder="Dette er en beskrivelse" id="description" type="text" class="validate">
+                    <label for="description">description</label>
+                </div>
+                <div class="input-field center">
+                    <button class="btn-small" type="button">Add</button>
+                </div>
+            <!-- </form> -->
+        </div>
+
+        <script src="/JS/Jqurey.js"></script>
+        <script src="/JS/Ui.js"></script>
+        <script src="manifest.json"></script>
+        <script src="/JS/app.js"></script>
+        <script src="/JS/capture.js"></script>
+
+        <!--Post-->
+        <script>
+            $(document).ready(function() {
+                var product = {
+                title: 'Some title.',
+                descriptions: 'Some descriptions.'
+                }
+            $("#createForm").submit(function(e) {
+                $.ajax({
+                url:"https://localhost:44337/api/product/create", 
+                type: "post", 
+                data:$(this).serialize(),
+                dataType: "json",
+                success: function(data){
+                    alert(data.title);
+                }
+            })
+            e.preventDefault();
+        })
+    })
+
+            
+        </script>
+    </body>
+</html>
